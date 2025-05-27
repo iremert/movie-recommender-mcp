@@ -4,7 +4,7 @@ def getMovieSuggestions(keyword: str) -> str:
     """
     Get movie suggestions from TMDb API based on keyword.
     """
-    API_KEY = "demo"  # Gerçek key ile değiştirilebilir
+    API_KEY = "c6fae702c36224d5f01778d394772520"  # Gerçek key ile değiştirilebilir
     url = f"https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={keyword}"
 
     response = requests.get(url)
