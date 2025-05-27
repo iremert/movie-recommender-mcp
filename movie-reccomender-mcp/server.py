@@ -1,13 +1,15 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-from movie_recommender import get_movie_recommendation
+from mcp.server.fastmcp import FastMCP
+from movie_recommender import getMovieSuggestions
 
-app = FastAPI()
+mcp = FastMCP("movie-recommender-mcp")
 
-class Input(BaseModel):
-    input: str
+@mcp.tool()
+async def get_movies(keyword: str) -> str:
+    """
+    Get movie suggestions based on keyword.
+    """
+    result = getMovieSuggestions(keyword)
+    return result or "Film bulunamadı."
 
-@app.post("/run")
-async def run_tool(input_data: Input):
-    result = get_movie_recommendation(input_data.input)
-    return {"output": result}
+if __name__ == "__main__":
+    mcp.run(transport="stdio")
